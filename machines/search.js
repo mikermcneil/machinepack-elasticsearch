@@ -42,6 +42,9 @@ module.exports = {
     error: {
       description: 'Unexpected error occurred.'
     },
+    noSuchIndex: {
+      description: 'The specified index does not exist'
+    },
     success: {
       description: 'Done.',
       example: ['f1913a1011-21940a0b1315-1939a193e1']
@@ -50,6 +53,7 @@ module.exports = {
   fn: function(inputs, exits) {
 
     var util = require('util');
+    var _ = require('lodash');
     var elasticsearch = require('elasticsearch');
 
     var client = new elasticsearch.Client({
@@ -62,6 +66,12 @@ module.exports = {
     }, function (err, body) {
       if (err) {
         client.close();
+        if (typeof err !== 'object' || typeof err.message !== 'string'){
+          return exits.error(err);
+        }
+        if (err.message.match(/IndexMissingException/)){
+          return exits.noSuchIndex();
+        }
         return exits.error(err);
       }
 
