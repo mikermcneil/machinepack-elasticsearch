@@ -1,6 +1,7 @@
 module.exports = {
   friendlyName: 'Update document',
   description: 'Update (reindex) the document with the specified unique id.',
+  extendedDescription: 'If no document with the specified id exists, one will be created.',
   moreInfoUrl: 'http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-index',
   inputs: {
     hostname: {
