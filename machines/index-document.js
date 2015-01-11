@@ -27,6 +27,11 @@ module.exports = {
       example: 'myindex',
       required: true,
     },
+    type: {
+      description: 'The "type" of this document',
+      defaultsTo: 'default',
+      example: 'user'
+    },
     document: {
       description: 'The document to store',
       typeclass: 'dictionary',
@@ -63,7 +68,7 @@ module.exports = {
 
     client.index({
       index: inputs.index,
-      // type: 'mytype',
+      type: inputs.type||'default',
       // id: '1',
       body: {
         doc: inputs.document
@@ -83,19 +88,20 @@ module.exports = {
         return exits.error(err);
       }
 
-      console.log(body);
-      // var hits = [];
-
-      // try {
-      //   hits = body.hits.hits;
-      // }
-      // catch (e) {
-      //   client.close();
-      //   return exits.error(e);
-      // }
+      var id;
+      try {
+        id = body._id;
+        if (!body.created){
+          throw new Error('Expected response from ElasticSearch to contain the `created` property');
+        }
+      }
+      catch (e) {
+        client.close();
+        return exits.error(e);
+      }
 
       client.close();
-      return exits.success();
+      return exits.success(id);
     });
   },
 

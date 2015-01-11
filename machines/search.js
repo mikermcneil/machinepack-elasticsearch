@@ -85,6 +85,7 @@ module.exports = {
 
       try {
         hits = body.hits.hits;
+        hits = _.pluck(hits, '_id');
       }
       catch (e) {
         client.close();
