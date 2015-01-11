@@ -92,7 +92,7 @@ module.exports = {
       try {
         id = body._id;
         if (!body.created){
-          throw new Error('Expected response from ElasticSearch to contain the `created` property');
+          throw new Error('Expected response from ElasticSearch to specify `created:true`');
         }
       }
       catch (e) {

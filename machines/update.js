@@ -95,15 +95,15 @@ module.exports = {
         return exits.error(err);
       }
 
-      console.log(body);
-      // var id;
-      // try {
-      //   id = body._id;
-      // }
-      // catch (e) {
-      //   client.close();
-      //   return exits.error(e);
-      // }
+      try {
+        if (body.created) {
+          throw new Error('Expected response from ElasticSearch to specify `created:false`');
+        }
+      }
+      catch (e) {
+        client.close();
+        return exits.error(e);
+      }
 
       client.close();
       return exits.success();
