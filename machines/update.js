@@ -60,6 +60,10 @@ module.exports = {
     },
     success: {
       description: 'Done.'
+    },
+    created: {
+      description: 'Document with specified id and type did not exist, so it was created.',
+      example: 'lzmkDgMjTbGoacxLMsB_zA'
     }
   },
   fn: function(inputs, exits) {
@@ -100,7 +104,9 @@ module.exports = {
 
       try {
         if (body.created) {
-          throw new Error('Expected response from ElasticSearch to specify `created:false`');
+          // Expected response from ElasticSearch to specify `created:false`
+          // since it didn't, we inadvertently created the document.
+          return exits.created(inputs.id);
         }
       }
       catch (e) {
