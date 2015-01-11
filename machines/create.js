@@ -1,5 +1,5 @@
 module.exports = {
-  friendlyName: 'Index document',
+  friendlyName: 'Create document',
   description: 'Store the provided document (a dictionary), making it searchable.',
   moreInfoUrl: 'http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-index',
   inputs: {

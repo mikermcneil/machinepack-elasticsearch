@@ -24,7 +24,8 @@
     "machineDir": "machines/",
     "machines": [
       "search",
-      "index-document"
+      "update",
+      "create"
     ]
   }
 }
