@@ -64,6 +64,7 @@ module.exports = {
 
     client.search({
       q: inputs.query,
+      _source : false,
       index: inputs.index
     }, function (err, body) {
       if (err) {
@@ -80,7 +81,7 @@ module.exports = {
         return exits.error(err);
       }
 
-      // console.log(body);
+      // console.log(util.inspect(body, false, null));
       var hits = [];
 
       try {
