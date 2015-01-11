@@ -55,7 +55,7 @@ module.exports = {
     noSuchIndex: {
       description: 'The specified index does not exist',
     },
-    noSuchDocument: {
+    documentNotFound: {
       description: 'No document with the specified id and type exists in this index',
     },
     success: {
@@ -88,6 +88,9 @@ module.exports = {
         }
         if (err.constructor && err.constructor.name === 'NoConnections' || err.message.match(/No Living connections/)){
           return exits.couldNotConnect();
+        }
+        if (err.message.match(/Not Found/)) {
+          return exits.documentNotFound();
         }
         if (err.message.match(/IndexMissingException/)){
           return exits.noSuchIndex();

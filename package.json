@@ -25,7 +25,8 @@
     "machines": [
       "search",
       "update",
-      "create"
+      "create",
+      "destroy"
     ]
   }
 }
