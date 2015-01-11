@@ -42,8 +42,12 @@ module.exports = {
     error: {
       description: 'Unexpected error occurred.'
     },
+    couldNotConnect: {
+      description: 'Could not connect to ElasticSearch at the provided hostname and port, or all connections in the ES client pool are "dead".',
+      extendedDescription: 'See http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/current/errors.html'
+    },
     noSuchIndex: {
-      description: 'The specified index does not exist'
+      description: 'The specified index does not exist',
     },
     success: {
       description: 'Done.',
@@ -57,7 +61,8 @@ module.exports = {
     var elasticsearch = require('elasticsearch');
 
     var client = new elasticsearch.Client({
-      host: util.format('%s:%d', inputs.hostname, inputs.port||9200)
+      host: util.format('%s:%d', inputs.hostname, inputs.port||9200),
+      log: require('../helpers/noop-logger')
     });
 
     client.search({
@@ -68,6 +73,9 @@ module.exports = {
         client.close();
         if (typeof err !== 'object' || typeof err.message !== 'string'){
           return exits.error(err);
+        }
+        if (err.constructor && err.constructor.name === 'NoConnections' || err.message.match(/No Living connections/)){
+          return exits.couldNotConnect();
         }
         if (err.message.match(/IndexMissingException/)){
           return exits.noSuchIndex();
