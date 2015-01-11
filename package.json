@@ -23,7 +23,8 @@
     "friendlyName": "ElasticSearch",
     "machineDir": "machines/",
     "machines": [
-      "search"
+      "search",
+      "index-document"
     ]
   }
 }

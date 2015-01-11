@@ -1,8 +1,7 @@
 module.exports = {
-  friendlyName: 'Search',
-  description: 'Search across all indexed fields, returning the ids of the documents which match the query.',
-  extendedDescription: 'This will perform a full-text style query across all fields. The query string supports the Lucene query parser syntax and hence filters on specific fields (e.g. fieldname:value), wildcards (e.g. abc*) as well as a variety of options.',
-  moreInfoUrl: 'http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-search',
+  friendlyName: 'Index document',
+  description: 'Store the provided document (a dictionary), making it searchable.',
+  moreInfoUrl: 'http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-index',
   inputs: {
     hostname: {
       description: 'The hostname of your ElasticSearch server',
@@ -23,14 +22,14 @@ module.exports = {
       }
     },
     index: {
-      description: 'The name of the index to search',
+      description: 'The name of the index where the document should be stored',
       extendedDescription: 'An "index" in ElasticSearch is a lot like a "database" in MySQL or MongoDB.',
       example: 'myindex',
-      required: true
+      required: true,
     },
-    query: {
-      description: 'The search query',
-      example: 'cute dogs',
+    document: {
+      description: 'The document to store',
+      typeclass: 'dictionary',
       required: true
     }
   },
@@ -47,8 +46,8 @@ module.exports = {
       description: 'The specified index does not exist',
     },
     success: {
-      description: 'Done.',
-      example: ['f1913a1011-21940a0b1315-1939a193e1']
+      description: 'Returns the unique id of the document.',
+      example: 'f1913a1011-21940a0b1315-1939a193e1'
     }
   },
   fn: function(inputs, exits) {
@@ -62,9 +61,13 @@ module.exports = {
       log: require('../helpers/noop-logger')
     });
 
-    client.search({
-      q: inputs.query,
-      index: inputs.index
+    client.index({
+      index: inputs.index,
+      // type: 'mytype',
+      // id: '1',
+      body: {
+        doc: inputs.document
+      },
     }, function (err, body) {
       if (err) {
         client.close();
@@ -80,19 +83,19 @@ module.exports = {
         return exits.error(err);
       }
 
-      // console.log(body);
-      var hits = [];
+      console.log(body);
+      // var hits = [];
 
-      try {
-        hits = body.hits.hits;
-      }
-      catch (e) {
-        client.close();
-        return exits.error(e);
-      }
+      // try {
+      //   hits = body.hits.hits;
+      // }
+      // catch (e) {
+      //   client.close();
+      //   return exits.error(e);
+      // }
 
       client.close();
-      return exits.success(hits);
+      return exits.success();
     });
   },
 
