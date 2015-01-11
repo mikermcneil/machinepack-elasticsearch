@@ -42,11 +42,24 @@ module.exports = {
     client.search({
       q: inputs.query
     }, function (err, body) {
-      if (err) return exits.error(err);
+      if (err) {
+        client.close();
+        return exits.error(err);
+      }
 
-      console.log(body);
-      // body.hits.hits?
-      return exits.success(body);
+      // console.log(body);
+      var hits = [];
+
+      try {
+        hits = body.hits.hits;
+      }
+      catch (e) {
+        client.close();
+        return exits.error(e);
+      }
+
+      client.close();
+      return exits.success(hits);
     });
   },
 
