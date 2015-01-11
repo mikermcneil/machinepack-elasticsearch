@@ -52,7 +52,7 @@ module.exports = {
     },
     success: {
       description: 'Returns the unique id of the document.',
-      example: 'f1913a1011-21940a0b1315-1939a193e1'
+      example: 'lzmkDgMjTbGoacxLMsB_zA'
     }
   },
   fn: function(inputs, exits) {
