@@ -1,5 +1,5 @@
 module.exports = {
-  friendlyName: 'search',
+  friendlyName: 'Search',
   description: 'Search across all indexed fields, returning the ids of the documents which match the query.',
   extendedDescription: 'This will perform a full-text style query across all fields. The query string supports the Lucene query parser syntax and hence filters on specific fields (e.g. fieldname:value), wildcards (e.g. abc*) as well as a variety of options.',
   moreInfoUrl: 'http://okfnlabs.org/blog/2013/07/01/elasticsearch-query-tutorial.html#classic-search-box-style-full-text-query',
@@ -7,12 +7,29 @@ module.exports = {
     hostname: {
       description: 'The hostname of your ElasticSearch server',
       example: 'localhost',
-      required: true
+      required: true,
+      whereToGet: {
+        description: 'Copy the hostname of your ElasticSearch server',
+        extendedDescription: 'i.e. if you are using a hosted ElasticSearch instance at "bae23592g23523.some-hosted-service.com", that is your hostname.  If you are running ElasticSearch locally, this will be "localhost".'
+      }
     },
     port: {
       description: 'The port your ElasticSearch server is running on',
       defaultsTo: 9200,
-      example: 9200
+      example: 9200,
+      whereToGet: {
+        description: 'Copy the port of your ElasticSearch server',
+        extendedDescription: 'The conventional port number for ElasticSearch servers is 9200.'
+      }
+    },
+    index: {
+      description: 'The name of the index to search',
+      example: 'myindex',
+      required: true,
+      whereToGet: {
+        description: 'Look up the name of the desired index in your ElasticSearch database',
+        extendedDescription: 'An "index" in ElasticSearch is a lot like a table in MySQL or a collection in MongoDB.'
+      }
     },
     query: {
       description: 'The search query',
@@ -40,7 +57,8 @@ module.exports = {
     });
 
     client.search({
-      q: inputs.query
+      q: inputs.query,
+      index: inputs.index
     }, function (err, body) {
       if (err) {
         client.close();
