@@ -1,0 +1,28 @@
+{
+  "name": "machinepack-elasticsearch",
+  "version": "0.1.0",
+  "description": "Access the ElasticSearch API in Node.js.",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha -b"
+  },
+  "keywords": [
+    "ElasticSearch",
+    "machines",
+    "machinepack"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "machine": "^1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0"
+  },
+  "machinepack": {
+    "friendlyName": "ElasticSearch",
+    "machineDir": "machines/",
+    "machines": [
+      "search"
+    ]
+  }
+}
