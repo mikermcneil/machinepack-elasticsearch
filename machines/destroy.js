@@ -89,7 +89,7 @@ module.exports = {
         }
         return exits.error(err);
       }
-      console.log(body);
+      // console.log(body);
 
       // try {
       //   if (body.created) {

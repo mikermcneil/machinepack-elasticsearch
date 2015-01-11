@@ -106,6 +106,7 @@ module.exports = {
         if (body.created) {
           // Expected response from ElasticSearch to specify `created:false`
           // since it didn't, we inadvertently created the document.
+          client.close();
           return exits.created(inputs.id);
         }
       }
