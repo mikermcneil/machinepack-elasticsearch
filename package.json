@@ -1,6 +1,6 @@
 {
   "name": "machinepack-elasticsearch",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Access the ElasticSearch API in Node.js.",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha -b"
