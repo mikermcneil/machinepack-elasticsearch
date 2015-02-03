@@ -20,7 +20,7 @@
     "mocha": "^2.1.0"
   },
   "repository": {
-    "url": "git://github.com/mikermcneil/machinepack-github.git",
+    "url": "git://github.com/mikermcneil/machinepack-elasticsearch.git",
     "type": "git"
   },
   "machinepack": {
