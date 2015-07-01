@@ -13,11 +13,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "machine": "^1.1.0",
-    "elasticsearch": "3.1.1"
+    "elasticsearch": "3.1.1",
+    "machine": "^10.3.1"
   },
   "devDependencies": {
-    "mocha": "^2.1.0"
+    "mocha": "^2.1.0",
+    "test-machinepack-mocha": "^2.1.1"
   },
   "repository": {
     "url": "git://github.com/mikermcneil/machinepack-elasticsearch.git",
